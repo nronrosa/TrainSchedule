@@ -1,4 +1,4 @@
-// 1. Initialize Firebase
+
 var config = {
     apiKey: "AIzaSyBxrR3neZaLIYUBkUsgJwLLQPDSF3vy1vE",
     authDomain: "trainschedule-89018.firebaseapp.com",
@@ -9,18 +9,13 @@ var config = {
 };
 firebase.initializeApp(config);
 
-
-
-// Create a variable to reference the database.
 var database = firebase.database();
 
-
-// 2. Capture Button Click
 $("#submit-time").on("click", function (event) {
     event.preventDefault();
 
 
-    // Grabbed values from text boxes
+    
     trName = $("#train-name-input").val().trim();
     trDestination = $("#destination-input").val().trim();
     trFirstTrainTime = $("#first-train-time-input").val().trim();
@@ -98,7 +93,6 @@ database.ref().on("child_added", function (childSnapshot) {
 
     // do some calc for nextarrival and minutes away
     // ****************************************
-
 
 
     // Prettify the employee start
