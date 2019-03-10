@@ -19,14 +19,14 @@ $("#submit-time").on("click", function (event) {
     var trFirstTrainTime = $("#first-train-time-input").val().trim();
     var trFrequency = $("#frequency-input").val().trim();
 
-    
+
     var trFirstTrainTimeConverted = moment(trFirstTrainTime, "HH:mm").subtract(1, "years");
     console.log("trfristtrain" + trFirstTrainTime);
     console.log("firstTrainconvert" + trFirstTrainTimeConverted);
 
-    // var currentTime = moment();
-    // // console.log("currentTime " + currentTime);
-    // console.log("current time: " + moment(currentTime).format("hh:mm"));
+    var currentTime = moment();
+    console.log("currentTime " + currentTime);
+    console.log("current time: " + moment(currentTime).format("hh:mm A"));
 
     var diffTime = moment().diff(moment(trFirstTrainTimeConverted), "minutes");
     console.log("difference in time: " + diffTime);
@@ -46,35 +46,34 @@ $("#submit-time").on("click", function (event) {
         destination: trDestination,
         firstTrainTime: trFirstTrainTime,
         frequency: trFrequency,
-        // nextArrival: trNextArrival,
-        // minutesAway: trMinutesAway
+        nextArrival: nextTrainConverted,
+        minutesAway: tMinutesTillTrain
     };
 
 
-    if (trName === "" || trDestination === "" || trFirstTrainTime ===""|| trFrequency ==="") {
-        $('#myModal').modal('show'); 
+    if (trName === "" || trDestination === "" || trFirstTrainTime === "" || trFrequency === "") {
+        $('#myModal').modal('show');
 
     } else {
-        $('#myModal').modal('hide'); 
+        $('#myModal').modal('hide');
+
+        // Uploads data to the database
+        database.ref().push(newTrainSchedule);
+
+        // Logs everything to console
+        console.log(newTrainSchedule.trainName);
+        console.log(newTrainSchedule.destination);
+        console.log(newTrainSchedule.firstTrainTime);
+        console.log(newTrainSchedule.frequency);
+        console.log(newTrainSchedule.nextArrival);
+        console.log(newTrainSchedule.minutesAway);
 
 
-    // Uploads data to the database
-    database.ref().push(newTrainSchedule);
-
-    // Logs everything to console
-    console.log(newTrainSchedule.trainName);
-    console.log(newTrainSchedule.destination);
-    console.log(newTrainSchedule.firstTrainTime);
-    console.log(newTrainSchedule.frequency);
-    // console.log(newTrainSchedule.nextArrival);
-    // console.log(newTrainSchedule.minutesAway);
-
-
-    // Clears all of the text-boxes
-    $("#train-name-input").val("");
-    $("#destination-input").val("");
-    $("#first-train-time-input").val("");
-    $("#frequency-input").val("");
+        // Clears all of the text-boxes
+        $("#train-name-input").val("");
+        $("#destination-input").val("");
+        $("#first-train-time-input").val("");
+        $("#frequency-input").val("");
     }
 });
 
@@ -86,37 +85,16 @@ database.ref().on("child_added", function (childSnapshot) {
     var trDestination = childSnapshot.val().destination;
     var trFirstTrainTime = childSnapshot.val().firstTrainTime;
     var trFrequency = childSnapshot.val().frequency;
-    var trNextArrival = "something";
-    var trMinutesAway = "something";
+    var trNextArrival = childSnapshot.val().nextArrival;
+    var trMinutesAway = childSnapshot.val().minutesAway;
 
     // train Info
     console.log(trName);
     console.log(trDestination);
     console.log(trFirstTrainTime);
     console.log(trFrequency);
-    // console.log(trNextArrival);
-    // console.log(trMinutesAway);
-
-
-
-    // do some calc for nextarrival and minutes away
-    // ****************************************
-
-
-    // Prettify the employee start
-    // var empStartPretty = moment.unix(empStart).format("MM/DD/YYYY");
-
-    // Calculate the months worked using hardcore math
-    // To calculate the months worked
-    // var empMonths = moment().diff(moment(empStart, "X"), "months");
-    // console.log(empMonths);
-
-    // Calculate the total billed rate
-    // var empBilled = empMonths * empRate;
-    // console.log(empBilled);
-
-    // ****************************************
-
+    console.log(trNextArrival);
+    console.log(trMinutesAway);
 
     // Create the new row
     var newRow = $("<tr>").append(
@@ -124,7 +102,9 @@ database.ref().on("child_added", function (childSnapshot) {
         $("<td>").text(trDestination),
         $("<td>").text(trFirstTrainTime),
         $("<td>").text(trFrequency),
-        $("<td>").text(trNextArrival),
+        // $("<td>").text(trNextArrival),
+        
+        $("<td>").text(moment.unix(trNextArrival).format("hh:mm A")),
         $("<td>").text(trMinutesAway),
     );
 
