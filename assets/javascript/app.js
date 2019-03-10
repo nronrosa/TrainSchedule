@@ -14,20 +14,19 @@ var database = firebase.database();
 $("#submit-time").on("click", function (event) {
     event.preventDefault();
 
+    var trName = $("#train-name-input").val().trim();
+    var trDestination = $("#destination-input").val().trim();
+    var trFirstTrainTime = $("#first-train-time-input").val().trim();
+    var trFrequency = $("#frequency-input").val().trim();
 
     
-    trName = $("#train-name-input").val().trim();
-    trDestination = $("#destination-input").val().trim();
-    trFirstTrainTime = $("#first-train-time-input").val().trim();
-    trFrequency = $("#frequency-input").val().trim();
-
     var trFirstTrainTimeConverted = moment(trFirstTrainTime, "HH:mm").subtract(1, "years");
     console.log("trfristtrain" + trFirstTrainTime);
     console.log("firstTrainconvert" + trFirstTrainTimeConverted);
 
-    var currentTime = moment();
-    // console.log("currentTime " + currentTime);
-    console.log("current time: " + moment(currentTime).format("hh:mm"));
+    // var currentTime = moment();
+    // // console.log("currentTime " + currentTime);
+    // console.log("current time: " + moment(currentTime).format("hh:mm"));
 
     var diffTime = moment().diff(moment(trFirstTrainTimeConverted), "minutes");
     console.log("difference in time: " + diffTime);
@@ -36,8 +35,10 @@ $("#submit-time").on("click", function (event) {
     var tMinutesTillTrain = trFrequency - tRemainder;
     console.log("minutes till train/away" + tMinutesTillTrain);
     var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-    console.log("Arrival time: " + moment(nextTrain).format("HH:mm"));
+    console.log("Arrival time: " + moment(nextTrain).format("HH:mm A"));
+    var nextTrainConverted = nextTrain.format("X");
 
+    console.log("Unix Time nextTrainConverted: " + nextTrainConverted);
 
     // Creates local "temporary" object for holding data
     var newTrainSchedule = {
@@ -49,6 +50,12 @@ $("#submit-time").on("click", function (event) {
         // minutesAway: trMinutesAway
     };
 
+
+    if (trName === "" || trDestination === "" || trFirstTrainTime ===""|| trFrequency ==="") {
+        $('#myModal').modal('show'); 
+
+    } else {
+        $('#myModal').modal('hide'); 
 
 
     // Uploads data to the database
@@ -68,6 +75,7 @@ $("#submit-time").on("click", function (event) {
     $("#destination-input").val("");
     $("#first-train-time-input").val("");
     $("#frequency-input").val("");
+    }
 });
 
 database.ref().on("child_added", function (childSnapshot) {
@@ -101,7 +109,7 @@ database.ref().on("child_added", function (childSnapshot) {
     // Calculate the months worked using hardcore math
     // To calculate the months worked
     // var empMonths = moment().diff(moment(empStart, "X"), "months");
-    / / // console.log(empMonths);
+    // console.log(empMonths);
 
     // Calculate the total billed rate
     // var empBilled = empMonths * empRate;
@@ -125,7 +133,10 @@ database.ref().on("child_added", function (childSnapshot) {
 });
 
 
+
 //     // Handle the errors
 // }, function (errorObject) {
 //     console.log("Errors handled: " + errorObject.code);
 // });
+
+

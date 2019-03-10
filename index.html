@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,22 +9,23 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- LINK TO FIREBASE GOES HERE -->
     <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
-      <!-- Link to Moment.js should go here -->
-  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <!-- Link to Moment.js should go here -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <title>Train Schedule</title>
 </head>
+
 <body class="background">
     <!-- heading -->
     <div class="container">
-    <div class="jumbotron heading">
-        <h1 class="display-4">All Aboard!</h1>
-        <p class="lead">Review the train schedule so you will not be late!</p>
-        <hr class="my-4">
-        <p>keep calm & travel ON...choo, choo</p>
+        <div class="jumbotron heading">
+            <h1 class="display-4">All Aboard!</h1>
+            <p class="lead">Review the train schedule so you will not be late!</p>
+            <hr class="my-4">
+            <p>keep calm & travel ON...choo, choo</p>
+        </div>
     </div>
-</div>
-  <!--Schedule  -->
-  <div class="container">
+    <!--Schedule  -->
+    <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-default tarjeta">
@@ -47,45 +49,69 @@
         </div>
 
     </div>
+    <!-- modal alert -->
+    <div class="container modal-alert"></div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalCenterTitle">Train Schedule: Add Train</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Fields must not be blank.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 
 
     <!-- Form -->
 
     <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card card-default tarjeta">
-                        <div class="card-header">
-                            Add Train
-                        </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="form-group row">
-                                    <label for="train-name">Train Name</label>
-                                    <input class="form-control" id="train-name-input" type="text" placeholder="Enter the name of train">
-                                </div>
-                                <div class="form-group row">
-                                    <label for="destination">Destination</label>
-                                    <input class="form-control" id="destination-input" type="text" placeholder="What is the destination">
-                                </div>
-                                <div class="form-group row">
-                                    <label for="first-train-time">First Train Time (HH:mm-military time)</label>
-                                    <input class="form-control" id="first-train-time-input" type="text" placeholder="Enter in military HH:mm">
-                                </div>
-                                <div class="form-group row">
-                                        <label for="frequency">Frequency (min)</label>
-                                        <input class="form-control" id="frequency-input" type="text" placeholder="How often">
-                                    </div>
-                                <button class="btn btn-primary" id="submit-time" type="submit">Submit</button>
-                            </form>
-                        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card card-default tarjeta">
+                    <div class="card-header">
+                        Add Train
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group row">
+                                <label for="train-name">Train Name</label>
+                                <input class="form-control" id="train-name-input" type="text"
+                                    placeholder="Enter the name of train">
+                            </div>
+                            <div class="form-group row">
+                                <label for="destination">Destination</label>
+                                <input class="form-control" id="destination-input" type="text"
+                                    placeholder="What is the destination">
+                            </div>
+                            <div class="form-group row">
+                                <label for="first-train-time">First Train Time (HH:mm-military time)</label>
+                                <input class="form-control" id="first-train-time-input" type="text"
+                                    placeholder="Enter in military HH:mm">
+                            </div>
+                            <div class="form-group row">
+                                <label for="frequency">Frequency (min)</label>
+                                <input class="form-control" id="frequency-input" type="text" placeholder="How often">
+                            </div>
+                            <button class="btn btn-primary" id="submit-time" type="submit">Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
-    
-    
         </div>
+
+
+    </div>
 
 
 
@@ -110,4 +136,5 @@
     <!-- my javascript/jquery file -->
     <script type="text/javascript" src="assets/javascript/app.js">  </script>
 </body>
+
 </html>
