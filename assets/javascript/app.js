@@ -24,9 +24,9 @@ $("#submit-time").on("click", function (event) {
     };
 
     if (trName === "" || trDestination === "" || trFirstTrainTime === "" || trFrequency === "") {
-        $('#myModal').modal('show');
+        $("#myModal").modal("show");
     } else {
-        $('#myModal').modal('hide');
+        $("#myModal").modal("hide");
 
         database.ref().push(newTrainSchedule);
 
@@ -34,7 +34,7 @@ $("#submit-time").on("click", function (event) {
         $("#destination-input").val("");
         $("#first-train-time-input").val("");
         $("#frequency-input").val("");
-    }
+    };
 });
 
 database.ref().on("child_added", function (childSnapshot) {
