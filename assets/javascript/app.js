@@ -27,9 +27,7 @@ $("#submit-time").on("click", function (event) {
         $("#myModal").modal("show");
     } else {
         $("#myModal").modal("hide");
-
         database.ref().push(newTrainSchedule);
-
         $("#train-name-input").val("");
         $("#destination-input").val("");
         $("#first-train-time-input").val("");
@@ -38,21 +36,16 @@ $("#submit-time").on("click", function (event) {
 });
 
 database.ref().on("child_added", function (childSnapshot) {
-  
     var trName = childSnapshot.val().trainName;
     var trDestination = childSnapshot.val().destination;
     var trFirstTrainTime = childSnapshot.val().firstTrainTime;
     var trFrequency = childSnapshot.val().frequency;
-
     var trFirstTrainTimeConverted = moment(trFirstTrainTime, "HH:mm").subtract(1, "years");
     var diffTime = moment().diff(moment(trFirstTrainTimeConverted), "minutes");
     var tRemainder = diffTime % trFrequency;
-
     var tMinutesTillTrain = trFrequency - tRemainder;
-
     var nextTrain = moment().add(tMinutesTillTrain, "minutes");
     var trArrivalTime = moment(nextTrain).format("hh:mm A")
-
     var newRow = $("<tr>").append(
         $("<td>").text(trName),
         $("<td>").text(trDestination),
@@ -60,6 +53,5 @@ database.ref().on("child_added", function (childSnapshot) {
         $("<td>").text(trArrivalTime),
         $("<td>").text(tMinutesTillTrain),
     );
-
     $("#train-schedule-table > tbody").append(newRow);
 });
