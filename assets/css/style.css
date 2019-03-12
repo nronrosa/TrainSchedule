@@ -10,7 +10,6 @@ body {
 }
 
 .jumbotron {
-    height: 250px;
     margin-top: 20px;
     background-image: url(../images/bullettrain.jpg);
     background-size: cover;                      
